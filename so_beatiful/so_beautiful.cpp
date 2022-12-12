@@ -1,6 +1,7 @@
 #include<iostream>
 #include<map>
 #include<utility>
+#include<algorithm>
 using namespace std;
 
 int main()
@@ -14,9 +15,10 @@ int main()
     while(n--)
     {
         int vow_num = 0;
-        char first_vow = '0';
+        char last_vow = '0';
         string word;
         cin>>word;
+        reverse(word.begin(),word.end());
         for(auto chr:word)
         {
             if(chr == 'a'||chr=='e'||chr=='i'||chr=='o'||chr=='u')
@@ -24,16 +26,16 @@ int main()
                 vow_num++;
                 if(vow_num==1)
                 {
-                    first_vow = chr;
+                    last_vow = chr;
                 }
             }
         }
         if(vow_num==0)continue;
         else
         {
-            if(Second.find(make_pair(first_vow,vow_num))!=Second.end())
+            if(Second.find(make_pair(last_vow,vow_num))!=Second.end())
             {
-                int num = ++Second[make_pair(first_vow,vow_num)];
+                int num = ++Second[make_pair(last_vow,vow_num)];
                 if(num%2==0)
                 {
                     second_num++;
@@ -41,7 +43,7 @@ int main()
             }
             else
             {
-                Second[make_pair(first_vow,vow_num)]=1;
+                Second[make_pair(last_vow,vow_num)]=1;
             }
             if(first.find(vow_num)!=first.end())
             {
@@ -56,14 +58,15 @@ int main()
                 first[vow_num]=1;
             }
         }
-        if(second_num >= first_num/2)
-        {
-            cout<<first_num/2<<endl;
-        }
-        else
-        {
-            cout<<second_num<<endl;
-        }
+       
+    }
+    if(second_num >= first_num/2)
+    {
+        cout<<first_num/2<<endl;
+    }
+    else
+    {
+        cout<<second_num<<endl;
     }
     return 0;
 }
